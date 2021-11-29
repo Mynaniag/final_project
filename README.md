@@ -37,7 +37,7 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 #kubectl describe -n jenkins pod/jenkins-0
 ############################
 ```
-###Install prometheus-operator
+### Install prometheus-operator
 ```bash
 #install prometheus-community operator
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -45,7 +45,7 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 kubectl port-forward deployment/prometheus-grafana 3000:3000 --address 0.0.0.0
 ```
 
-###Install config-map
+### Install config-map
 ```bash
 kubectl apply -f config-all.yaml
 kubectl apply -f config-map.yaml
