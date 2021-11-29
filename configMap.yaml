@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx
+data:
+  3000: "monitoring/prometheus-grafana:80"
+  9093: "monitoring/prometheus-kube-prometheus-alertmanager:9093"
+  9090: "monitoring/prometheus-kube-prometheus-prometheus:9090"
