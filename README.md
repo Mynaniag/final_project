@@ -41,6 +41,19 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 ```bash
 #install prometheus-community operator
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+kubectl create secret generic etcd-certs -nmonitoring \
+  --from-file=/etc/ssl/etcd/ssl/ca.pem \
+  --from-file=/etc/ssl/etcd/ssl/node-master1-key.pem \
+  --from-file=/etc/ssl/etcd/ssl/node-master1.pem
+
+helm install -f values.yaml prometheus -n monitoring prometheus-community/kube-prometheus-stack \
+  --namespace monitoring \
+  --set prometheusOperator.createCustomResource=false \
+  --set kubeEtcd.serviceMonitor.scheme=https \
+  --set kubeEtcd.serviceMonitor.caFile=/etc/prometheus/secrets/etcd-certs/ca.pem \
+  --set kubeEtcd.serviceMonitor.certFile=/etc/prometheus/secrets/etcd-certs/node-master1.pem \
+  --set kubeEtcd.serviceMonitor.keyFile=/etc/prometheus/secrets/etcd-certs/node-master1-key.pem \
+  --set prometheus.prometheusSpec.secrets={etcd-certs}
 #если не запущен конфиг мап
 kubectl port-forward deployment/prometheus-grafana 3000:3000 --address 0.0.0.0
 ```
