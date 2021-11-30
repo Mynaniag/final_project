@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pytho-app
+  name: python-app
+  namespace: default
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - image: mynaniag/python-app
+        name: python-app
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        resources:
+         requests:
+          memory: "64Mi"
+          cpu: "250m"
+         limits:
+          memory: "128Mi"
+          cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: python-app
+  name: python-app
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: python-app
+  type: NodePort
+status:
+  loadBalancer: {}
