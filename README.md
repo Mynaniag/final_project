@@ -32,6 +32,11 @@ kubectl apply -f jenkins-ingress.yaml
 
 #password
 kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/chart-admin-password && echo
+#######Password for jenkins#######Second way
+jsonpath="{.data.jenkins-admin-password}"
+secret=$(kubectl get secret -n jenkins jenkins -o jsonpath=$jsonpath)
+echo $(echo $secret | base64 --decode)
+##################################
 
 ###########DEBUG############
 #kubectl describe -n jenkins pod/jenkins-0
@@ -41,6 +46,7 @@ kubectl exec --namespace jenkins -it svc/jenkins -c jenkins -- /bin/cat /run/sec
 ```bash
 #install prometheus-community operator
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
 kubectl create secret generic etcd-certs -nmonitoring \
   --from-file=/etc/ssl/etcd/ssl/ca.pem \
   --from-file=/etc/ssl/etcd/ssl/node-master1-key.pem \
@@ -56,6 +62,11 @@ helm install -f values.yaml prometheus -n monitoring prometheus-community/kube-p
   --set prometheus.prometheusSpec.secrets={etcd-certs}
 #если не запущен конфиг мап
 kubectl port-forward deployment/prometheus-grafana 3000:3000 --address 0.0.0.0
+
+#login
+admin
+#password grafana
+prom-operator
 ```
 
 ### Install config-map
