@@ -21,7 +21,7 @@ spec:
         app: python-app
     spec:
       containers:
-      - image: mynaniag/python-app:{{BUILD_NUMBER}}
+      - image: mynaniag/python-app:<TAG>
         imagePullPolicy: Always
         name: python-app
         ports:
