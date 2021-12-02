@@ -22,6 +22,7 @@ spec:
     spec:
       containers:
       - image: mynaniag/python-app
+        imagePullPolicy: Always
         name: python-app
         ports:
         - containerPort: 8080
