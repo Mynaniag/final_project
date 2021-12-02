@@ -32,7 +32,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("${BUILT_NUMBER}")
+          //dockerImage.push("${BUILT_NUMBER}")
             dockerImage.push("latest") 
           }
         }
