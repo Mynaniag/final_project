@@ -21,7 +21,7 @@ spec:
         app: python-app
     spec:
       containers:
-      - image: mynaniag/python-app:<TAG>
+      - image: mynaniag/python-app
         imagePullPolicy: Always
         name: python-app
         ports:
