@@ -11,7 +11,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        sh 'sed -i \"s/<TAG>/${BUILD_NUMBER} /\" application/demo/views.py'
+        sh 'sed -i \"s/<TAG>/${BUILD_NUMBER}/\" application/demo/views.py'
         git branch: 'main',
             url: 'https://github.com/Mynaniag/final_project.git'
       }
