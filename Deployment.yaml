@@ -40,7 +40,7 @@ spec:
           periodSeconds: 5
         resources:
          requests:
-          memory: "120i"
+          memory: "120Mi"
           cpu: "400m"
          limits:
           memory: "600Mi"
