@@ -6,7 +6,7 @@ metadata:
   name: python-app
   namespace: default
 spec: 
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: python-app
