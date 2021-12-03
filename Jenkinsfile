@@ -11,7 +11,6 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        sh 'sed -i -e "s/<TAG>/${BUILD_NUMBER:=1}/g" application/demo/views.py'
         git branch: 'main',
             url: 'https://github.com/Mynaniag/final_project.git'
       }
@@ -20,6 +19,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
+          sh 'sed -i -e "s/<TAG>/${BUILD_NUMBER:=1}/g" application/demo/views.py'
           dockerImage = docker.build dockerimagename + ":$BUILD_NUMBER" 
         }
       }
