@@ -39,6 +39,7 @@ echo $(echo $secret | base64 --decode)
 
 ###########DEBUG############
 #kubectl describe -n jenkins pod/jenkins-0
+
 ############################
 ```
 ### Install prometheus-operator
