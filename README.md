@@ -26,6 +26,7 @@ kubectl apply -f jenkins-sa.yaml
 
 #helm uninstall jenkins -n jenkins
 
+
 helm install jenkins -n jenkins -f jenkins-values.yaml jenkinsci/jenkins
 #start work ingress nginx jenkins:80
 kubectl apply -f jenkins-ingress.yaml
