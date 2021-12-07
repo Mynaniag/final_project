@@ -7,6 +7,7 @@
 
 sudo su
 
+
 ## Jenkins helm chart install ##
 kubectl create namespace jenkins
 
